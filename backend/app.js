@@ -3,15 +3,11 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import fileUpload from "express-fileupload";
 
-import userRouter from "./routes/userRouter.js";
-import jobRouter from "./routes/jobRouter.js";
-import applicationRouter from "./routes/applicationRouter.js"
-
 import { errorMiddleware } from "./middlewares/error.js";
 
 const app = express();  // initialize app
 
-// Middlewares usecase 
+// External package usecase.
 app.use(
 	cors({
 		origin: [process.env.FRONTEND_URL, process.env.MONGODB_URL],
@@ -31,10 +27,16 @@ app.use(fileUpload(
 ));
 
 
+// Importing the routes
+import userRouter from "./routes/userRouter.js";
+import jobRouter from "./routes/jobRouter.js";
+import applicationRouter from "./routes/applicationRouter.js"
+
 // using the routes
 app.use('/api/v1/user', userRouter)
-app.use('/api/v1/jobs', jobRouter)
+app.use('/api/v1/job', jobRouter)
 app.use('/api/v1/application', applicationRouter)
+
 
 app.use(errorMiddleware); // always use this at the end and never call it like this "errorMiddleware()"
 

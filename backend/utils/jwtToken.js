@@ -8,11 +8,10 @@ export const sendToken = (user, statusCode, res, message) => {
 		),
 		httpOnly: true,
 	};
-
 	res.status(statusCode).cookie("generatedToken", generatedToken, options).json({
 		success: true,
-		message,
 		user,
-		generatedToken
+		message,
+		generatedToken,
 	});
 };

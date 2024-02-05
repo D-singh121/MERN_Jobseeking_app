@@ -1,16 +1,19 @@
-import express from "express";
+import { Router } from "express";
+//IMPORTING CONTROLLER.
 import { register } from "../controllers/user.controller.js";
 import { login } from "../controllers/user.controller.js";
 import { logout } from "../controllers/user.controller.js";
-import { isAuthorized } from "../middlewares/auth.js";
+import { isAuthenticated } from "../middlewares/auth.js";
 
 
-const router = express.Router();
+// const router = express.Router();
+// <!-- or -->
+const router = Router();
 
 //ALL ROUTES.
 router.post("/register", register)
 router.post("/login", login)
-router.get("/logout", isAuthorized, logout)
+router.get("/logout",isAuthenticated, logout)
 
 
-export default router
+export default router;

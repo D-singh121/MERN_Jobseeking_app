@@ -29,7 +29,7 @@ export const register = catchAsyncError(async (req, res, next) => {
 		user,
 	});
 	*/
-	sendToken(user, 200, res, "User Registered Successfully!"); // from utils 
+	sendToken(user, 201, res, "User Registered Successfully!"); // from utils 
 });
 
 
@@ -56,9 +56,9 @@ export const login = catchAsyncError(async (req, res, next) => {
 	if (user.role !== role) {
 		return next(new ErrorHandler("User with this role not found", 400));
 	}
-	sendToken(user, 200, res, "User logged in successfully!")
+	sendToken(user, 201, res, "User logged in successfully!")
 
-})
+});
 
 // USER LOGOUT FUNCTIONALITY
 // order of writing the "req,res,next" is mandatory otherwise we will get the error

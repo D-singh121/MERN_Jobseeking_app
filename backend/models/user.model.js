@@ -8,6 +8,8 @@ const userSchema = new mongoose.Schema({
 	name: {
 		type: String,
 		required: true,
+		trim: true,
+		index: true,
 		lowercase: true,
 		minLength: [3, "Name must contain at least 3 characters!"],
 		maxLength: [30, "Name can not exceed  30 characters!"]
@@ -34,7 +36,7 @@ const userSchema = new mongoose.Schema({
 	role: {
 		type: String,
 		required: [true, "Please provide your role"],
-		enum: ["JobSeeker","Employer"]
+		enum: ["JobSeeker", "Employer"]
 	},
 	createdAt: {
 		type: Date,
@@ -46,12 +48,12 @@ const userSchema = new mongoose.Schema({
 // HASING THE PASSWORD.
 userSchema.pre("save", async function (next) {
 	if (!this.isModified("password")) {
-		next();
+		return next();
 	}
 	this.password = await bcrypt.hash(this.password, 10) // set setting to 10 recommended
 });
 
-//COMPARING PASSWORD
+//COMPARING PASSWORD during login
 userSchema.methods.comparePassword = async function (enteredPassword) {
 	return await bcrypt.compare(enteredPassword, this.password);
 };

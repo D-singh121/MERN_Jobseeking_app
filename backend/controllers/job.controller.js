@@ -2,6 +2,8 @@ import ErrorHandler from "../middlewares/error.js"
 import { catchAsyncError } from "../middlewares/catchAsyncError.js"
 import { Job } from '../models/job.model.js';
 
+
+//Fetching all the jobs
 export const getAllJobs = catchAsyncError(async (req, res, next) => {
 	const jobs = await Job.find({ expired: false });
 	res.status(200).json({
@@ -10,7 +12,7 @@ export const getAllJobs = catchAsyncError(async (req, res, next) => {
 	});
 });
 
-
+// Adding jobs for Employer.
 export const postJob = catchAsyncError(async (req, res, next) => {
 	const { role } = req.user;
 	if (role === "JobSeeker") {
@@ -40,7 +42,7 @@ export const postJob = catchAsyncError(async (req, res, next) => {
 		return next(new ErrorHandler("Please either provide fixed salary or ranged salary!", 400));
 	}
 	if (salaryFrom && salaryTo && fixedSalary) {
-		return next(new ErrorHandler("Can't enter fixed salary and Ranged salary togather!" , 400));
+		return next(new ErrorHandler("Can't enter fixed salary and Ranged salary togather!", 400));
 	}
 	const postedBy = req.user._id;
 
@@ -61,4 +63,20 @@ export const postJob = catchAsyncError(async (req, res, next) => {
 		message: "Job posted successfully!",
 		job,
 	});
+});
+
+
+// Fetching all job for a perticular user by user_id.
+export const getmyJobs = catchAsyncError(async (req, res, next) => {
+	const { role } = req.user;
+	if (role === "JobSeeker") {
+		return next(
+			new ErrorHandler(" JobSeeker is not allowed to access this resource")
+		);
+	}
+	const myjobs = await Job.find({ postedBy: req.user._id }); // hum user_id se perticular user ki jobs find kar sakte hai.
+	res.status(200).json({
+		success: true,
+		myjobs
+	})
 });

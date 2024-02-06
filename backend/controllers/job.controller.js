@@ -12,7 +12,7 @@ export const getAllJobs = catchAsyncError(async (req, res, next) => {
 	});
 });
 
-// Adding jobs for Employer.
+// Adding jobs by Employer.
 export const postJob = catchAsyncError(async (req, res, next) => {
 	const { role } = req.user;
 	if (role === "JobSeeker") {
@@ -124,7 +124,6 @@ export const deleteJobs = catchAsyncError(async (req, res, next) => {
 			new ErrorHandler("Oops, Job not found! ", 404)
 		);
 	}
-
 	await job.deleteOne();
 	res.status(200).json({
 		success: true,

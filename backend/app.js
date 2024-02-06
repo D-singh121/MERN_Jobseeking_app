@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true, limit: "16kb" }));  // it convert s
 app.use(fileUpload(
 	{
 		useTempFiles: true,
-		tempFileDir: "/temp/",
+		tempFileDir: "./public/temp",
 	}
 ));
 
@@ -33,6 +33,9 @@ import jobRouter from "./routes/jobRouter.js";
 import applicationRouter from "./routes/applicationRouter.js"
 
 // using the routes
+app.get('/', (req, res) => {
+  res.send('Our Jobseeker application is perfectly working!')
+})
 app.use('/api/v1/user', userRouter)
 app.use('/api/v1/job', jobRouter)
 app.use('/api/v1/application', applicationRouter)

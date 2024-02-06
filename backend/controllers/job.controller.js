@@ -71,7 +71,7 @@ export const getmyJobs = catchAsyncError(async (req, res, next) => {
 	const { role } = req.user;
 	if (role === "JobSeeker") {
 		return next(
-			new ErrorHandler(" JobSeeker is not allowed to access this resource")
+			new ErrorHandler(" JobSeeker is not allowed to access this resource", 400)
 		);
 	}
 	const myjobs = await Job.find({ postedBy: req.user._id }); // hum user_id se perticular user ki jobs find kar sakte hai.
@@ -79,4 +79,55 @@ export const getmyJobs = catchAsyncError(async (req, res, next) => {
 		success: true,
 		myjobs
 	})
+});
+
+
+export const updateJobs = catchAsyncError(async (req, res, next) => {
+	const { role } = req.user;
+	if (role === " JobSeeker") {
+		return next(
+			new ErrorHandler("JobSeeker is not allowed to access this resources", 400)
+		);
+	}
+
+	const { id } = req.params;  // request parameter se Job ki Id le lenge.
+	let job = await Job.findById(id);
+	if (!job) {
+		return next(
+			new ErrorHandler("Oops, Job not found! ", 404)
+		);
+	}
+	job = await Job.findByIdAndUpdate(id, req.body, {
+		new: true,
+		runValidators: false,
+		useFindAndModify: false,
+	});
+	res.status(200).json({
+		success: true,
+		job,
+		message: "Job updated successfully! ",
+	})
+})
+
+
+export const deleteJobs = catchAsyncError(async (req, res, next) => {
+	const { role } = req.user;
+	if (role === " JobSeeker") {
+		return next(
+			new ErrorHandler("JobSeeker is not allowed to access this resources", 400)
+		);
+	}
+	const { id } = req.params;
+	let job = await Job.findById(id);
+	if (!job) {
+		next(
+			new ErrorHandler("Oops, Job not found! ", 404)
+		);
+	}
+
+	await job.deleteOne();
+	res.status(200).json({
+		success: true,
+		message: "Job Deleted Successfully!"
+	});
 });

@@ -1,33 +1,61 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useContext, useEffect } from "react"
+import { Context } from "./main.jsx";
+import "./App.css";
+import axios from "axios";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-function App() {
-  const [count, setCount] = useState(0)
+import SignUp from "./components/Auth/SignUp.jsx"
+import LogIn from "./components/Auth/Login.jsx";
+import Header from "./components/Layout/Header.jsx"
+import Footer from "./components/Layout/Footer.jsx";
+import Home from "./components/Home/Home.jsx";
+
+import JobDetails from "./components/Job/JobDetails.jsx";
+import AllJobs from './components/Job/AllJobs.jsx';
+import MyJobs from './components/Job/MyJobs.jsx';
+import PostJob from './components/Job/PostJob.jsx';
+
+import Application from './components/Application/Application.jsx';
+import MyApplication from './components/Application/MyApplication.jsx';
+
+import NotFound from "./components/NotFound/NotFound.jsx";
+import { Toaster } from "react-hot-toast";
+
+const App = () => {
+  const { isAuthorized, setIsAuthorized, setUser } = useContext(Context)
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get("http://localhost:", { withCredentials: true });
+        setUser(response.data.user);
+        setIsAuthorized(true);
+      } catch (error) {
+        setIsAuthorized(false)
+      }
+    };
+    fetchUser();
+  }, [isAuthorized])
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<LogIn />} />
+          <Route path="/job/getall" element={<AllJobs />} />
+          <Route path="/job/:id" element={<JobDetails />} />
+          <Route path="/application/:id" element={<Application />} />
+          <Route path="/application/my" element={<MyApplication />} />
+          <Route path="/job/post" element={<PostJob />} />
+          <Route path="/job/my" element={<MyJobs />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+        <Footer />
+        <Toaster />
+      </Router>
     </>
   )
 }

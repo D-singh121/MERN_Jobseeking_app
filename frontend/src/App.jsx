@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import SignUp from "./components/Auth/SignUp.jsx"
 import LogIn from "./components/Auth/Login.jsx";
-import Header from "./components/Layout/Header.jsx"
+import Navbar from "./components/Layout/Navbar.jsx"
 import Footer from "./components/Layout/Footer.jsx";
 import Home from "./components/Home/Home.jsx";
 
@@ -27,20 +27,21 @@ const App = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get("http://localhost:", { withCredentials: true });
+        const response = await axios.get("/user/getuser", { withCredentials: true });
         setUser(response.data.user);
+        console.log(response.data.user);
         setIsAuthorized(true);
       } catch (error) {
         setIsAuthorized(false)
       }
     };
     fetchUser();
-  }, [isAuthorized])
+  }, [isAuthorized]);
 
   return (
     <>
       <Router>
-        <Header />
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<SignUp />} />

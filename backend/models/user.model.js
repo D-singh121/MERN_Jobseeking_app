@@ -45,6 +45,8 @@ const userSchema = new mongoose.Schema({
 
 });
 
+
+
 // HASING THE PASSWORD.
 userSchema.pre("save", async function (next) {
 	if (!this.isModified("password")) {
@@ -58,13 +60,23 @@ userSchema.methods.comparePassword = async function (enteredPassword) {
 	return await bcrypt.compare(enteredPassword, this.password);
 };
 
-// GENERATNG A JWT TOKEN FOR AUTHORIZATION.
+// GENERATNG A JWT TOKEN FOR AUTHORIZATION. passig userId , jwtsecretkey and expiration time .
 userSchema.methods.getJWTToken = function () {
 	return jwt.sign({ id: this._id }, process.env.JWT_SECRET_KEY, {
 		expiresIn: process.env.JWT_EXPIRE
 	})
 }
 
+/*
+// We can create this as separate function also .
+function generateJwtToken(userId) {
+	return jwt.sign({ id: userId }, process.env.JWT_SECRET_KEY, { expiresIn: process.env.JWT_EXPIRE })
+}
+// example usage;
+const user = new User({ _id: this._id }); // Replace 'user_id_here' with the actual user ID
+const token = generateJwtToken(user._id);
+console.log('Generated JWT token:', token);
+*/
 
 
 export const User = mongoose.model("User", userSchema)

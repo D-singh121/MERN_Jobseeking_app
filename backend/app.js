@@ -2,23 +2,27 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import fileUpload from "express-fileupload";
-
+// import addCorsHeaders from "./middlewares/addCorsHeaders.js"; // future use only
 import { errorMiddleware } from "./middlewares/error.js";
 
 const app = express();  // initialize app
 
-// External package usecase.
 app.use(
 	cors({
-		origin: [process.env.FRONTEND_URL, process.env.MONGODB_URL],
-		methods: ["GET", "POST", "DELETE", "PUT"],
-		credentials: true
+		origin: "http://localhost:5173",
+		// origin: [process.env.FRONTEND_URL, process.env.MONGODB_URL],
+		method: ["GET", "POST", "DELETE", "PUT"],
+		credentials: true,
 	})
 );
+
+// app.use(addCorsHeaders) // future use only
+
+
 app.use(cookieParser());
 app.use(express.static("public")) // to storing file data like png , favicon etc.. 
-app.use(express.json({ limit: "16kb" })); // it will only parse json data.
-app.use(express.urlencoded({ extended: true, limit: "16kb" }));  // it convert string data into json.mostly used for URL param data sort.
+app.use(express.json()); // it will only parse json data.
+app.use(express.urlencoded({ extended: true }));  // it convert string data into json.mostly used for URL param data sort.
 app.use(fileUpload(
 	{
 		useTempFiles: true,
@@ -34,7 +38,7 @@ import applicationRouter from "./routes/applicationRouter.js"
 
 // using the routes
 app.get('/', (req, res) => {
-  res.send('Our Jobseeker application is perfectly working!')
+	res.send('Our Jobseeker application is perfectly working!')
 })
 app.use('/api/v1/user', userRouter)
 app.use('/api/v1/job', jobRouter)

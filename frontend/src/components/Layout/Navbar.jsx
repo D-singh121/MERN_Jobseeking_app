@@ -6,16 +6,20 @@ import axios from "axios";
 import { GiHamburgerMenu } from "react-icons/gi"
 
 const Navbar = () => {
+
   const [show, setShow] = useState(false);
+
   const { isAuthorized, setIsAuthorized, user } = useContext(Context);
+
   const navigateTo = useNavigate();
 
   const handleLogout = async () => {
     try {
-      const response = await axios.get("/user/logout", { withCredentials: true })
+      const response = await axios.get("http://localhost:8000/api/v1/user/logout", { withCredentials: true })
+
       toast.success(response.data.message);
       setIsAuthorized(false) // agar user login nahi hai to.
-      navigateTo("/") 
+      navigateTo("/login")
     } catch (error) {
       toast.error(error.response.data.message),
         setIsAuthorized(true); // logout nahi ho raha hai matlab user login hai.
@@ -23,7 +27,7 @@ const Navbar = () => {
   }
 
   return (
-      (
+    (
       <nav className={isAuthorized ? "navbarShow" : "navbarHide"}>
         <div className="container">
 
@@ -37,11 +41,13 @@ const Navbar = () => {
                 HOME
               </Link>
             </li>
+
             <li>
-              <Link to={"/job/getall"} onClick={() => setShow(false)}>
+              <Link to={"/job/getalljob"} onClick={() => setShow(false)}>
                 ALL JOBS
               </Link>
             </li>
+
             <li>
               <Link to={"/application/my"} onClick={() => setShow(false)}>
                 {user && user.role === "Employer"
@@ -49,6 +55,7 @@ const Navbar = () => {
                   : "MY APPLICATIONS"}
               </Link>
             </li>
+
             {user && user.role === "Employer" ? (
               <>
                 <li>
@@ -73,7 +80,7 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-      )
+    )
   )
 }
 

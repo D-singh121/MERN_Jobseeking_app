@@ -27,10 +27,13 @@ const App = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get("/user/getuser", { withCredentials: true });
-        setUser(response.data.user);
-        console.log(response.data.user);
-        setIsAuthorized(true);
+        const response = await axios.get("http://localhost:8000/api/v1/user/getuser", { withCredentials: true });
+        // console.log(response.data.user);
+        
+        if (response) {
+          setUser(response.data.user);
+          setIsAuthorized(true);
+        }
       } catch (error) {
         setIsAuthorized(false)
       }
@@ -46,7 +49,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<LogIn />} />
-          <Route path="/job/getall" element={<AllJobs />} />
+          <Route path="/job/getalljob" element={<AllJobs />} />
           <Route path="/job/:id" element={<JobDetails />} />
           <Route path="/application/:id" element={<Application />} />
           <Route path="/application/my" element={<MyApplication />} />

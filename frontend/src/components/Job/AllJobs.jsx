@@ -17,7 +17,7 @@ const AllJobs = () => {
       }).then((res) => {
         // console.log(res);
         setJobs(res.data)   // sabhi jobs ko fetch karke "jobs" state me store kar rahe hai.
-        console.log(res.data);
+        // console.log(res.data);
       });
 
     } catch (error) {

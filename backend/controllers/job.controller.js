@@ -130,3 +130,26 @@ export const deleteJobs = catchAsyncError(async (req, res, next) => {
 		message: "Job Deleted Successfully!"
 	});
 });
+
+
+// Get a single job by job_id;
+export const getSingleJob = catchAsyncError(async (req, res, next) => {
+	const { id } = req.params; // user jab kisi job pe click karta hai to us url me hume us job ki id milegi jise hun "req.param" ke through get karenge. 
+
+	try {
+		//matching job id with our db job id 
+		const job = await Job.findById(id);
+
+		if (!job) {
+			return next(new ErrorHandler("Job not found", 404))
+		}
+		// if job get 
+		res.status(200).json({
+			success: true,
+			job
+		})
+	} catch (error) {
+		return next(new ErrorHandler(`Invalid ID / CastError`, 404))
+	}
+
+})

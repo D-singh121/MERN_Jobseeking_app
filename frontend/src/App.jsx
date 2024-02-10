@@ -51,10 +51,10 @@ const App = () => {
           <Route path="/login" element={<LogIn />} />
           <Route path="/job/getalljob" element={<AllJobs />} />
           <Route path="/job/:id" element={<JobDetails />} />
-          <Route path="/application/:id" element={<Application />} />
-          <Route path="/application/my" element={<MyApplication />} />
           <Route path="/job/post" element={<PostJob />} />
           <Route path="/job/my" element={<MyJobs />} />
+          <Route path="/application/:id" element={<Application />} />
+          <Route path="/application/my" element={<MyApplication />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />

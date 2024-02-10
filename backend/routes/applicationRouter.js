@@ -9,6 +9,6 @@ const router = express.Router(); // initializing the router
 router.post("/jobseeker/applyjob", isAuthenticated, userRoleCheck("JobSeeker"), postApplication)
 router.get("/employer/getall", isAuthenticated, userRoleCheck("Employer"), employerGetAllApplications)
 router.get("/jobseeker/getall", isAuthenticated, userRoleCheck("JobSeeker"), jobseekerGetAllApplications)
-router.delete("/delete/:id", isAuthenticated, jobSeekerDeleteApplication)
+router.delete("/jobseeker/delete/:id", isAuthenticated, jobSeekerDeleteApplication)
 
 export default router;

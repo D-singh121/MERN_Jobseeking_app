@@ -1,9 +1,16 @@
-import React from 'react'
 
-const ResumeModal = () => {
+// imageUrl & onClose props we are recieving from myApplication page as Props.
+const ResumeModal = ({ imageUrl, onClose }) => {
   return (
-	<div>ResumeModal</div>
-  )
-}
+    <div className="resume-modal">
+      <div className="modal-content">
+        <span className="close" onClick={onClose}>
+          &times;
+        </span>
+        <img src={imageUrl} alt="resume" />
+      </div>
+    </div>
+  );
+};
 
-export default ResumeModal
+export default ResumeModal;

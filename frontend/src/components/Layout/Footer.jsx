@@ -10,16 +10,16 @@ const Footer = () => {
     <footer className={isAuthorized ? "footerShow" : "footerHide"}>
       <div>&copy; All Rights Reserved By Dee.Tech.</div>
       <div>
-        <Link to={""} target="_blank">
+        <Link to={"/"} >
           <FaFacebookF />
         </Link>
-        <Link to={""} target="_blank">
+        <Link to={"/"} >
           <FaYoutube />
         </Link>
-        <Link to={""} target="_blank">
+        <Link to={"/"} >
           <FaLinkedin />
         </Link>
-        <Link to={""} target="_blank">
+        <Link to={"/"} >
           <RiInstagramFill />
         </Link>
       </div>

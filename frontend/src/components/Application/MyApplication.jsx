@@ -1,8 +1,7 @@
-/* eslint-disable react/prop-types */
-import ResumeModal from "./ResumeModal";
-import { Context } from "../../main.jsx";
 import { useContext, useEffect, useState } from "react";
+import { Context } from "../../main.jsx";
 import axios from "axios";
+import ResumeModal from "./ResumeModal.jsx";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
@@ -21,14 +20,14 @@ const MyApplication = () => {
 
   useEffect(() => {
     try {
-      if (user && user.role === "JobSeeker") { 
+      if (user && user.role === "JobSeeker") {
         axios.get("http://localhost:8000/api/v1/application/jobseeker/getall", { withCredentials: true }).then((res) => {
-          console.log(res.data.applications ," from jobseeker");
+          console.log(res.data.applications, " from jobseeker");
           setApplications(res.data.applications)
         })
       } else {
         axios.get("http://localhost:8000/api/v1/application/employer/getall", { withCredentials: true }).then((res) => {
-          console.log(res.data.applications);
+          // console.log(res.data.applications);
           setApplications(res.data.applications)
         })
       }
@@ -51,10 +50,10 @@ const MyApplication = () => {
       axios.delete(`http://localhost:8000/api/v1/application/jobseeker/delete/${id}`, { withCredentials: true })
         .then((res) => {
           toast.success(res.data.message); // application delete hone ke baad remaining application ko show bhi karna padega .
-
-          setApplications((...prevApplications) => {
-            prevApplications.filter((application) => application._id !== id);  // delete application ko exclude karke rest application ko state  me update kar denge.
-          })
+          setApplications((...prevApplications) =>
+            prevApplications.filter((application) => application._id !== id)  // delete application ko exclude karke rest application ko state  me update kar denge.
+          )
+          // navigateTo("/application/my")
         })
 
     } catch (error) {
@@ -87,7 +86,7 @@ const MyApplication = () => {
             ) : (
               applications.map((element) => {
                 return (
-                  <JobSeekerCard
+                  <JobSeekerCard  // passing some props into JobSeekerCard component.
                     element={element}
                     key={element._id}
                     deleteApplication={deleteApplicationByJobseeker}
@@ -130,7 +129,7 @@ export default MyApplication;
 
 
 // creating JobSeekerCard and EmployerCard .
-const JobSeekerCard = ({ element, deleteApplication, openApplicationModal }) => {
+const JobSeekerCard = ({ element, deleteApplication, openModal }) => {
   return (
     <>
       <div className="job_seeker_card">
@@ -155,7 +154,7 @@ const JobSeekerCard = ({ element, deleteApplication, openApplicationModal }) => 
           <img
             src={element.resume.url}
             alt="resume"
-            onClick={() => openApplicationModal(element.resume.url)}
+            onClick={() => openModal(element.resume.url)}
           />
         </div>
         <div className="btn_area">
@@ -168,7 +167,7 @@ const JobSeekerCard = ({ element, deleteApplication, openApplicationModal }) => 
   );
 };
 
-const EmployerCard = ({ element, openApplicationModal }) => {
+const EmployerCard = ({ element, openModal }) => {
   return (
     <>
       <div className="job_seeker_card">
@@ -194,7 +193,7 @@ const EmployerCard = ({ element, openApplicationModal }) => {
           <img
             src={element.resume.url}
             alt="resume"
-            onClick={() => openApplicationModal(element.resume.url)}
+            onClick={() => openModal(element.resume.url)}
           />
         </div>
       </div>

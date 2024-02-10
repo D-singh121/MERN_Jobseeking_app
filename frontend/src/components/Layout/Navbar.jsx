@@ -33,6 +33,7 @@ const Navbar = () => {
 
           <div className="logo">
             <img src="/JobZee-logos__white.png" alt="logo" />
+          
           </div>
 
           <ul className={!show ? "menu" : "show-menu menu"}>

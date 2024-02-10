@@ -7,7 +7,7 @@ const HowItWorks = () => {
     <>
       <div className="howitworks">
         <div className="container">
-          <h3>How JobZee Works</h3>
+          <h3>How  D.Job  Works</h3>
           
           <div className="banner">
 

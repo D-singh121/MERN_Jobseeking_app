@@ -53,7 +53,7 @@ const MyApplication = () => {
           setApplications((...prevApplications) =>
             prevApplications.filter((application) => application._id !== id)  // delete application ko exclude karke rest application ko state  me update kar denge.
           )
-          // navigateTo("/application/my")
+          navigateTo("/job/getalljob")
         })
 
     } catch (error) {

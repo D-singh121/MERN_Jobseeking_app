@@ -81,7 +81,7 @@ export const getmyJobs = catchAsyncError(async (req, res, next) => {
 	})
 });
 
-
+// by job employer
 export const updateJobs = catchAsyncError(async (req, res, next) => {
 	const { role } = req.user;
 	if (role === " JobSeeker") {
@@ -109,7 +109,7 @@ export const updateJobs = catchAsyncError(async (req, res, next) => {
 	})
 })
 
-
+// by employer
 export const deleteJobs = catchAsyncError(async (req, res, next) => {
 	const { role } = req.user;
 	if (role === " JobSeeker") {

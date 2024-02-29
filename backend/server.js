@@ -1,7 +1,6 @@
 import dotenv from "dotenv"; // as early as server start env file will get load.  
 import app from "./app.js"
 import dbConnection from "./database/dbConnection.js";
-import { v2 as cloudinary } from 'cloudinary';
 
 dotenv.config({ path: "./config/config.env" });// loading the environment variable.
 
@@ -14,6 +13,8 @@ app.listen(process.env.PORT || 8080, () => {
 
 
 // Importing cloudinary credentials.
+import { v2 as cloudinary } from 'cloudinary';
+
 cloudinary.config({
 	cloud_name: process.env.CLOUDNARY_CLIENT_NAME,
 	api_key: process.env.CLOUDNARY_CLIENT_API_KEY,

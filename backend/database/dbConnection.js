@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 
 // BY using Promises method
 /*
@@ -13,11 +12,12 @@ const dbConnection = () => {
 		.catch((err) => {
 			console.log(`Some error occured while connecting to the database: ${err}`);
 		})
-}
-*/
-
-
-// BY using Async-await method.
+	}
+	*/
+	
+	
+import mongoose from "mongoose";
+	// BY using Async-await method.
 // /*
 const dbConnection = async () => {
 	try {

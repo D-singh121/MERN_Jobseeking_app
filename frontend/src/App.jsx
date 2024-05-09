@@ -21,13 +21,16 @@ import MyApplication from './components/Application/MyApplication.jsx';
 import NotFound from "./components/NotFound/NotFound.jsx";
 import { Toaster } from "react-hot-toast";
 
+import {BACKEND_URL_POINT} from './components/utils/constants.js';
+
+
 const App = () => {
   const { isAuthorized, setIsAuthorized, setUser } = useContext(Context)
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/v1/user/getuser", { withCredentials: true });
+        const response = await axios.get(`${BACKEND_URL_POINT}/api/v1/user/getuser`, { withCredentials: true });
         // console.log(response.data.user);
         
         if (response) {

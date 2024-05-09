@@ -4,6 +4,8 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Context } from '../../main';
 import axios from 'axios';
 
+import { BACKEND_URL_POINT } from '../utils/constants.js';
+
 
 
 const JobDetails = () => {
@@ -18,7 +20,7 @@ const JobDetails = () => {
   const navigateTo = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/api/v1/job/${id}`, {
+    axios.get(`${BACKEND_URL_POINT}/api/v1/job/${id}`, {
       withCredentials: true,
     })
       .then((res) => {

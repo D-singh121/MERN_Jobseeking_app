@@ -6,6 +6,8 @@ import { RxCross2 } from "react-icons/rx";
 import { Context } from "../../main";
 import { useNavigate } from "react-router-dom";
 
+import {BACKEND_URL_POINT} from '../utils/constants.js';
+
 
 
 const MyJobs = () => {
@@ -23,7 +25,7 @@ const MyJobs = () => {
     const fetchJobs = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:8000/api/v1/job/getmyJobs",
+          `${BACKEND_URL_POINT}/api/v1/job/getmyJobs`,
           { withCredentials: true }
         );
         console.log(data);
@@ -63,7 +65,7 @@ const MyJobs = () => {
     const updatedJob = myJobs.find((job) => job._id === jobId);
 
     await axios
-      .put(`http://localhost:8000/api/v1/job/updatejob/${jobId}`, updatedJob, {
+      .put(`${BACKEND_URL_POINT}/api/v1/job/updatejob/${jobId}`, updatedJob, {
         withCredentials: true,
       })
       .then((res) => {
@@ -80,7 +82,7 @@ const MyJobs = () => {
   //Function For Deleting Job
   const handleDeleteJob = async (jobId) => {
     await axios
-      .delete(`http://localhost:8000/api/v1/job/deletejob/${jobId}`, {
+      .delete(`${BACKEND_URL_POINT}/api/v1/job/deletejob/${jobId}`, {
         withCredentials: true,
       })
       .then((res) => {

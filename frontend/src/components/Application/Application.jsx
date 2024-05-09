@@ -4,6 +4,8 @@ import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { Context } from "../../main";
 
+import {BACKEND_URL_POINT} from '../utils/constants.js';
+
 
 const Application = () => {
   const [name, setName] = useState("");
@@ -41,7 +43,7 @@ const Application = () => {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:8000/api/v1/application/jobseeker/applyjob",
+        `${BACKEND_URL_POINT}/api/v1/application/jobseeker/applyjob`,
         formData, // containing all input field data.
         {
           withCredentials: true,

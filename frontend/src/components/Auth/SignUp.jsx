@@ -9,6 +9,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { Context } from "../../main";
 
+import {BACKEND_URL_POINT} from '../utils/constants.js';
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -22,7 +23,7 @@ const SignUp = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("http://localhost:8000/api/v1/user/register",
+      const { data } = await axios.post(`${BACKEND_URL_POINT}/api/v1/user/register`,
         { name, phone, email, role, password },
         {
           headers: {
@@ -57,7 +58,9 @@ const SignUp = () => {
       <section className="authPage">
         <div className="container">
           <div className="header">
-            <img src="/JobZeelogo.png" alt="logo" />
+            {/* <img src="/JobZeelogo.png" alt="logo" /> */}
+            <h2>DC</h2>
+
             <h3>Create a new account</h3>
           </div>
 

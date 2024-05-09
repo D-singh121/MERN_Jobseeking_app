@@ -3,6 +3,9 @@ import axios from 'axios';
 import { Context } from '../../main';
 import { Link, useNavigate } from 'react-router-dom';
 
+import { BACKEND_URL_POINT } from '../utils/constants.js';
+
+
 const AllJobs = () => {
   const [jobs, setJobs] = useState([]); // jo bhi job aayegi use hum yaha store karenge 
   // console.log(jobs);
@@ -12,7 +15,7 @@ const AllJobs = () => {
 
   useEffect(() => {
     try {
-      axios.get("http://localhost:8000/api/v1/job/getalljob", {
+      axios.get(`${BACKEND_URL_POINT}/api/v1/job/getalljob`, {
         withCredentials: true, // for cookies ,header
       }).then((res) => {
         // console.log(res);
@@ -23,7 +26,7 @@ const AllJobs = () => {
     } catch (error) {
       console.log(error);
     }
-  },[]);
+  }, []);
   // if user is not authorized then he can't access the resource so redirecting to the home page.
   if (!isAuthorized) {
     navigate("/")
@@ -35,7 +38,7 @@ const AllJobs = () => {
     <section className="jobs page">
       <div className="container">
         <h1>ALL AVAILABLE JOBS</h1>
-        
+
         <div className="banner">
           {jobs.jobs &&
             jobs.jobs.map((element) => {

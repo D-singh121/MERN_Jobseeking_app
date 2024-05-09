@@ -4,6 +4,9 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../../main";
 
+import {BACKEND_URL_POINT} from '../utils/constants.js';
+
+
 
 const PostJob = () => {
   const [title, setTitle] = useState("");
@@ -35,7 +38,7 @@ const PostJob = () => {
     }
     await axios
       .post(
-        "http://localhost:8000/api/v1/job/post",
+        `${BACKEND_URL_POINT}/api/v1/job/post`,
         fixedSalary.length >= 4
           ? {
             title,

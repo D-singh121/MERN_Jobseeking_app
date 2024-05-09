@@ -5,6 +5,8 @@ import ResumeModal from "./ResumeModal.jsx";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
+import {BACKEND_URL_POINT} from '../utils/constants.js';
+
 
 
 const MyApplication = () => {
@@ -21,12 +23,12 @@ const MyApplication = () => {
   useEffect(() => {
     try {
       if (user && user.role === "JobSeeker") {
-        axios.get("http://localhost:8000/api/v1/application/jobseeker/getall", { withCredentials: true }).then((res) => {
+        axios.get(`${BACKEND_URL_POINT}/api/v1/application/jobseeker/getall`, { withCredentials: true }).then((res) => {
           console.log(res.data.applications, " from jobseeker");
           setApplications(res.data.applications)
         })
       } else {
-        axios.get("http://localhost:8000/api/v1/application/employer/getall", { withCredentials: true }).then((res) => {
+        axios.get(`${BACKEND_URL_POINT}/api/v1/application/employer/getall`, { withCredentials: true }).then((res) => {
           // console.log(res.data.applications);
           setApplications(res.data.applications)
         })
@@ -47,7 +49,7 @@ const MyApplication = () => {
   const deleteApplicationByJobseeker = (id) => {
 
     try {
-      axios.delete(`http://localhost:8000/api/v1/application/jobseeker/delete/${id}`, { withCredentials: true })
+      axios.delete(`${BACKEND_URL_POINT}/api/v1/application/jobseeker/delete/${id}`, { withCredentials: true })
         .then((res) => {
           toast.success(res.data.message); // application delete hone ke baad remaining application ko show bhi karna padega .
           setApplications((...prevApplications) =>

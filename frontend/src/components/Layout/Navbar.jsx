@@ -5,6 +5,9 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { GiHamburgerMenu } from "react-icons/gi"
 
+import {BACKEND_URL_POINT} from '../utils/constants.js';
+
+
 const Navbar = () => {
 
   const [show, setShow] = useState(false);
@@ -15,7 +18,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/api/v1/user/logout", { withCredentials: true })
+      const response = await axios.get(`${BACKEND_URL_POINT}/api/v1/user/logout`, { withCredentials: true })
 
       toast.success(response.data.message);
       setIsAuthorized(false) // agar user login nahi hai to.

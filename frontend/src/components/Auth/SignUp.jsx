@@ -9,7 +9,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { Context } from "../../main";
 
-import {BACKEND_URL_POINT} from '../utils/constants.js';
+import { BACKEND_URL_POINT } from '../utils/constants.js';
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -18,7 +18,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
 
-  const { isAuthorized, setIsAuthorized, user, setUser } = useContext(Context);
+  const { isAuthorized, setIsAuthorized } = useContext(Context);
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -32,15 +32,19 @@ const SignUp = () => {
           withCredentials: true,
         }
       );
+
       toast.success(data.message);
       console.log(data);
+
       setName("");
       setEmail("");
       setPassword("");
       setPhone("");
       setRole("");
       setIsAuthorized(true);
+
       <Navigate to={'/login'} />
+
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.message);
@@ -82,6 +86,7 @@ const SignUp = () => {
               <label>Name</label>
               <div>
                 <input
+                  autoComplete="false"
                   type="text"
                   placeholder="Devesh"
                   value={name}
@@ -95,6 +100,7 @@ const SignUp = () => {
               <label>Email Address</label>
               <div>
                 <input
+                  autoComplete="false"
                   type="email"
                   placeholder="dee@gmail.com"
                   value={email}
@@ -108,6 +114,7 @@ const SignUp = () => {
               <label>Phone Number</label>
               <div>
                 <input
+                  autoComplete="false"
                   type="number"
                   placeholder="1234567890"
                   value={phone}
@@ -121,6 +128,7 @@ const SignUp = () => {
               <label>Password</label>
               <div>
                 <input
+                  autoComplete="false"
                   type="password"
                   placeholder="Your Password"
                   value={password}

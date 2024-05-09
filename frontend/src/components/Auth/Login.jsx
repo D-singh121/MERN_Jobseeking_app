@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState  } from "react";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { RiLock2Fill } from "react-icons/ri";
 import { Link, Navigate } from "react-router-dom";
@@ -7,7 +7,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { Context } from "../../main";
 
-import {BACKEND_URL_POINT} from '../utils/constants.js';
+import { BACKEND_URL_POINT } from '../utils/constants.js';
 
 
 const Login = () => {
@@ -15,8 +15,9 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
 
-  const { isAuthorized, setIsAuthorized } = useContext(Context);
+  const { isAuthorized, setIsAuthorized  } = useContext(Context);
   // console.log(isAuthorized);
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -33,10 +34,11 @@ const Login = () => {
       );
       toast.success(data.message);
       console.log(data);
+      setIsAuthorized(true);
+
       setEmail("");
       setPassword("");
       setRole("");
-      setIsAuthorized(true);
 
     } catch (error) {
       console.log(error);
@@ -79,6 +81,7 @@ const Login = () => {
               <label>Email Address</label>
               <div>
                 <input
+                  autoComplete="false"
                   type="email"
                   autoComplete="false"
                   placeholder="dee@gmail.com"
@@ -93,6 +96,7 @@ const Login = () => {
               <label>Password</label>
               <div>
                 <input
+                  autoComplete="false"
                   type="password"
                   placeholder="Your Password"
                   value={password}

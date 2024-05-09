@@ -83,8 +83,7 @@ const Login = () => {
                 <input
                   autoComplete="false"
                   type="email"
-                  autoComplete="false"
-                  placeholder="dee@gmail.com"
+                   placeholder="dee@gmail.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />

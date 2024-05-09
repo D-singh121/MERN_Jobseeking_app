@@ -7,11 +7,12 @@ import PopularCategories from "./subComponents/PopularCategories.jsx";
 import PopularCompanies from "./subComponents/PopularCompanies.jsx";
 
 const Home = () => {
-  const { isAuthorized, setIsAuthorized } = useContext(Context);
+  const { isAuthorized } = useContext(Context);
+
   if (!isAuthorized) {
     return <Navigate to={"/login"} />;
   } else {
-    setIsAuthorized(true);
+    // setIsAuthorized(true); // this was causing unneccesry state update.
     <Navigate to={"/"} />
   }
   return (

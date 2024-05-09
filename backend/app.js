@@ -9,7 +9,7 @@ const app = express();  // initialize app
 
 app.use(
 	cors({
-		origin: 'https://mern-jobseeking-app-devesh-choudharys-projects.vercel.app/login',
+		origin: 'https://mern-jobseeking-app-devesh-choudharys-projects.vercel.app',
 		// origin: [process.env.FRONTEND_URL, process.env.MONGODB_URL],
 		method: ["GET", "POST", "DELETE", "PUT"],
 		credentials: true,

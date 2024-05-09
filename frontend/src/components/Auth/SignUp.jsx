@@ -4,7 +4,7 @@ import { MdOutlineMailOutline } from "react-icons/md";
 import { RiLock2Fill } from "react-icons/ri";
 import { FaPencilAlt } from "react-icons/fa";
 import { FaPhoneFlip } from "react-icons/fa6";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Context } from "../../main";
@@ -19,6 +19,8 @@ const SignUp = () => {
   const [role, setRole] = useState("");
 
   const { isAuthorized, setIsAuthorized } = useContext(Context);
+
+  const navigate = useNavigate()
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -36,14 +38,18 @@ const SignUp = () => {
       toast.success(data.message);
       console.log(data);
 
+      if (data.success == true) {
+        navigate("/")
+      }
+      setIsAuthorized(true);
+
       setName("");
       setEmail("");
       setPassword("");
       setPhone("");
       setRole("");
-      setIsAuthorized(true);
 
-      <Navigate to={'/login'} />
+      // <Navigate to={'/login'} />
 
     } catch (error) {
       console.log(error);
@@ -51,7 +57,7 @@ const SignUp = () => {
     }
 
     if (isAuthorized) {
-      return <Navigate to={'/'} />
+      return <Navigate to={'/login'} />
     }
 
   };

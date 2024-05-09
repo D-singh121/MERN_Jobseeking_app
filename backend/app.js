@@ -9,8 +9,8 @@ const app = express();  // initialize app
 
 app.use(
 	cors({
-		// origin: 'https://mern-jobseeking-app-devesh-choudharys-projects.vercel.app',
-		origin: "http://localhost:5173",
+		origin: 'https://mern-jobseeking-app-devesh-choudharys-projects.vercel.app',
+		// origin: "http://localhost:5173",
 
 		method: ["GET", "POST", "DELETE", "PUT"],
 		credentials: true,
